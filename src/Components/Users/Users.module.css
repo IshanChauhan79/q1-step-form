@@ -18,6 +18,19 @@
   position: absolute;
   top: 2rem;
   right: 2rem;
+  cursor: pointer;
+  /* text-align: right; */
+}
+.Back {
+  border: 1px solid #61acb3;
+  color: #61acb3;
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  cursor: pointer;
+
   /* text-align: right; */
 }
 .UserData {

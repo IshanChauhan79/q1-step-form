@@ -37,13 +37,16 @@ function AddressForm(props) {
       state: address.state.trim(),
     };
     props.onSubmit(data);
-    history.push("/details");
+    history.push("/Payment");
   };
 
   return (
     <div className={classes.AddressForm}>
+      <div className={classes.Back} onClick={() => history.push("/")}>
+        Back
+      </div>
       <div className={classes.Welcome}>
-        <div className={classes.Title}>Enter Details</div>
+        <div className={classes.Title}>Enter Address</div>
       </div>
 
       <form onSubmit={addressFormSubmit}>
@@ -81,7 +84,7 @@ function AddressForm(props) {
           onChange={stateChange}
           required
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Next Step</button>
       </form>
     </div>
   );

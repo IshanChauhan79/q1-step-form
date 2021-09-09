@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Redirect, useHistory } from "react-router";
 import Users from "../Users/Users";
 import classes from "./StepForm.module.css";
 import Form from "../Form/Form";
 import AddressForm from "../Form/AddressForm";
+import Payment from "../Form/Payment";
 
 function Auth() {
   const [isData, setIsData] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
+  const [isPayment, setIsPayment] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,9 +22,11 @@ function Auth() {
       city: "",
       state: "",
     },
+    payment: {
+      amount: "",
+      method: "",
+    },
   });
-  const [isAuth, setIsAuth] = useState(false);
-  const [users, setUsers] = useState([]);
   const history = useHistory();
 
   const submitDetails = (data) => {
@@ -41,6 +46,13 @@ function Auth() {
     }));
     setIsAddress(true);
   };
+  const submitPayment = (data) => {
+    setFormData((prev) => ({
+      ...prev,
+      payment: data,
+    }));
+    setIsPayment(true);
+  };
 
   const homeClicked = () => {
     history.push("/");
@@ -48,6 +60,7 @@ function Auth() {
   const resetForm = () => {
     setIsData(false);
     setIsAddress(false);
+    setIsPayment(false);
     setFormData({
       name: "",
       email: "",
@@ -57,6 +70,10 @@ function Auth() {
         area: "",
         city: "",
         state: "",
+      },
+      payment: {
+        amount: "",
+        method: "",
       },
     });
   };
@@ -75,9 +92,16 @@ function Auth() {
             <Redirect to="/" />
           )}
         </Route>
+        <Route path="/payment" exact>
+          {isData && isAddress  ? (
+            <Payment onSubmit={submitPayment} data={formData.payment} />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Route>
 
         <Route path="/details" exact>
-          {isData && isAddress ? (
+          {isData && isAddress && isPayment ? (
             <Users data={formData} goHome={homeClicked} />
           ) : (
             <Redirect to="/" />
