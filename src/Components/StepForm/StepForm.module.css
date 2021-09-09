@@ -1,0 +1,11 @@
+.StepForm {
+  flex-grow: 2;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+@media screen and (max-width: 44em) {
+  .StepForm {
+    width: 100%;
+  }
+}
